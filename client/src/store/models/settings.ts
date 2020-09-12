@@ -1,4 +1,4 @@
-export interface IKnowledgeBaseMatrixRow {
+export interface KnowledgeBaseMatrixRow {
   m1: number;
   m2: number;
   m3: number;
@@ -6,42 +6,42 @@ export interface IKnowledgeBaseMatrixRow {
   [k: string]: number;
 }
 
-export interface IKnowledgeBaseMatrix {
-  vhs: IKnowledgeBaseMatrixRow;
-  hs: IKnowledgeBaseMatrixRow;
-  as: IKnowledgeBaseMatrixRow;
-  ls: IKnowledgeBaseMatrixRow;
-  vls: IKnowledgeBaseMatrixRow;
-  [k: string]: IKnowledgeBaseMatrixRow;
+export interface KnowledgeBaseMatrix {
+  vhs: KnowledgeBaseMatrixRow;
+  hs: KnowledgeBaseMatrixRow;
+  as: KnowledgeBaseMatrixRow;
+  ls: KnowledgeBaseMatrixRow;
+  vls: KnowledgeBaseMatrixRow;
+  [k: string]: KnowledgeBaseMatrixRow;
 }
 
-export interface IKnowledgeBase {
-  c1: IKnowledgeBaseMatrix;
-  c2: IKnowledgeBaseMatrix;
-  c3: IKnowledgeBaseMatrix;
-  c4: IKnowledgeBaseMatrix;
-  c5: IKnowledgeBaseMatrix;
-  c6: IKnowledgeBaseMatrix;
-  c7: IKnowledgeBaseMatrix;
-  c8: IKnowledgeBaseMatrix;
-  [k: string]: IKnowledgeBaseMatrix;
+export interface KnowledgeBase {
+  c1: KnowledgeBaseMatrix;
+  c2: KnowledgeBaseMatrix;
+  c3: KnowledgeBaseMatrix;
+  c4: KnowledgeBaseMatrix;
+  c5: KnowledgeBaseMatrix;
+  c6: KnowledgeBaseMatrix;
+  c7: KnowledgeBaseMatrix;
+  c8: KnowledgeBaseMatrix;
+  [k: string]: KnowledgeBaseMatrix;
 }
 
-export interface ITermSetItem {
-  description: string;
+export interface TermSetItem {
+  name: string;
   range: [number, number];
 }
 
-export interface ITermSet {
-  t1: ITermSetItem;
-  t2: ITermSetItem;
-  t3: ITermSetItem;
-  t4: ITermSetItem;
-  t5: ITermSetItem;
-  [k: string]: ITermSetItem;
+export interface TermSet {
+  t1: TermSetItem;
+  t2: TermSetItem;
+  t3: TermSetItem;
+  t4: TermSetItem;
+  t5: TermSetItem;
+  [k: string]: TermSetItem;
 }
 
-export interface ISettingsState {
-  knowledgeBase: IKnowledgeBase;
-  termSet: ITermSet;
+export interface SettingsState {
+  knowledgeBase: KnowledgeBase;
+  termSet: TermSet;
 }

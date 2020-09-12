@@ -44,14 +44,14 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { IKnowledgeBaseMatrix } from "@/store/models/settings";
+import { KnowledgeBaseMatrix } from "@/store/models/settings";
 import { mapActions } from "vuex";
 
 export default Vue.extend({
   props: {
     data: {
-      type: Object as () => IKnowledgeBaseMatrix,
-      default: Object as () => IKnowledgeBaseMatrix
+      type: Object as () => KnowledgeBaseMatrix,
+      default: Object as () => KnowledgeBaseMatrix
     },
     name: {
       type: String,

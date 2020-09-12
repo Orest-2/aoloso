@@ -1,6 +1,7 @@
-import { ISettingsState } from "./settings";
+import { HomeState } from "./home";
+import { SettingsState } from "./settings";
 
-export interface IRootState {
-  home: any;
-  settings: ISettingsState;
+export interface RootState {
+  home: HomeState;
+  settings: SettingsState;
 }

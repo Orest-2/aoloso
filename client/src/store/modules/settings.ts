@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
-import { ISettingsState } from "../models/settings";
-import { IRootState } from "../models/store";
+import { SettingsState } from "../models/settings";
+import { RootState } from "../models/store";
 
 const getZerroState = () => ({
   vhs: { m1: 0, m2: 0, m3: 0, m4: 0 },
@@ -10,7 +10,7 @@ const getZerroState = () => ({
   vls: { m1: 0, m2: 0, m3: 0, m4: 0 },
 });
 
-const state: ISettingsState = {
+const state: SettingsState = {
   knowledgeBase: {
     c1: getZerroState(),
     c2: getZerroState(),
@@ -23,29 +23,29 @@ const state: ISettingsState = {
   },
   termSet: {
     t1: {
-      description: "низький рівень",
+      name: "низький рівень",
       range: [0, 0],
     },
     t2: {
-      description: "рівень нижче середнього",
+      name: "рівень нижче середнього",
       range: [0, 0],
     },
     t3: {
-      description: "середній рівень",
+      name: "середній рівень",
       range: [0, 0],
     },
     t4: {
-      description: "рівень вище середнього",
+      name: "рівень вище середнього",
       range: [0, 0],
     },
     t5: {
-      description: "високий рівень",
+      name: "високий рівень",
       range: [0, 0],
     },
   },
 };
 
-const mutations: MutationTree<ISettingsState> = {
+const mutations: MutationTree<SettingsState> = {
   SET_VALUE_TO_KNOWLEDGE_BASE_MATRIX(state, { c, s, m, v } = {}) {
     state.knowledgeBase[c][s][m] = Number(v);
   },
@@ -54,16 +54,16 @@ const mutations: MutationTree<ISettingsState> = {
   },
 };
 
-const getters: GetterTree<ISettingsState, IRootState> = {
+const getters: GetterTree<SettingsState, RootState> = {
   getTermSetRageMinMax(state) {
-    return {
+    return () => ({
       min: state.termSet.t1.range[0],
       max: state.termSet.t5.range[1],
-    };
+    });
   },
 };
 
-const actions: ActionTree<ISettingsState, IRootState> = {
+const actions: ActionTree<SettingsState, RootState> = {
   setValueToKnowledgeBaseMatrix({ commit }, data) {
     commit("SET_VALUE_TO_KNOWLEDGE_BASE_MATRIX", data);
   },

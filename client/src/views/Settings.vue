@@ -21,13 +21,15 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { IRootState } from "@/store/models/store";
-import { customMapState } from "@/helpers/mapSatate";
+import { RootState } from "@/store/models/store";
+import { customMapState } from "@/helpers/map-satate";
 
 import KnowledgeBaseTable from "@/components/KnowledgeBaseTable.vue";
 import TermSetTable from "@/components/TermSetTable.vue";
 
 export default Vue.extend({
+  name: "Settings",
+
   components: {
     KnowledgeBaseTable,
     TermSetTable
@@ -35,7 +37,7 @@ export default Vue.extend({
 
   computed: {
     ...customMapState({
-      knowledgeBase: (sate: IRootState) => sate.settings.knowledgeBase
+      knowledgeBase: (sate: RootState) => sate.settings.knowledgeBase
     })
   }
 });

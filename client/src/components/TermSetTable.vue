@@ -48,13 +48,13 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { customMapState } from "@/helpers/mapSatate";
-import { IRootState } from "@/store/models/store";
+import { customMapState } from "@/helpers/map-satate";
+import { RootState } from "@/store/models/store";
 import { mapActions } from "vuex";
 
 interface Items {
   key: string;
-  description: string;
+  name: string;
   range: [number, number];
 }
 
@@ -63,7 +63,7 @@ export default Vue.extend({
     return {
       fields: [
         { key: "key", label: "Позначення" },
-        { key: "description", label: "Опис" },
+        { key: "name", label: "Назва" },
         { key: "range", label: "Проміжок" }
       ]
     };
@@ -71,17 +71,15 @@ export default Vue.extend({
 
   computed: {
     ...customMapState({
-      termSet: (s: IRootState) => s.settings.termSet
+      termSet: (s: RootState) => s.settings.termSet
     }),
 
     items(): Items[] {
-      return Object.entries(this.termSet).map(
-        ([key, { description, range }]) => ({
-          key,
-          description,
-          range
-        })
-      );
+      return Object.entries(this.termSet).map(([key, { name, range }]) => ({
+        key,
+        name,
+        range
+      }));
     }
   },
 
