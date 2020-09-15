@@ -1,8 +1,9 @@
+import { systemOperatingConditions } from "@/constants/system-operating-conditions";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { SettingsState } from "../models/settings";
 import { RootState } from "../models/store";
 
-const getZerroState = () => ({
+const getZeroState = () => ({
   vhs: { m1: 0, m2: 0, m3: 0, m4: 0 },
   hs: { m1: 0, m2: 0, m3: 0, m4: 0 },
   as: { m1: 0, m2: 0, m3: 0, m4: 0 },
@@ -12,14 +13,14 @@ const getZerroState = () => ({
 
 const state: SettingsState = {
   knowledgeBase: {
-    c1: getZerroState(),
-    c2: getZerroState(),
-    c3: getZerroState(),
-    c4: getZerroState(),
-    c5: getZerroState(),
-    c6: getZerroState(),
-    c7: getZerroState(),
-    c8: getZerroState(),
+    c1: getZeroState(),
+    c2: getZeroState(),
+    c3: getZeroState(),
+    c4: getZeroState(),
+    c5: getZeroState(),
+    c6: getZeroState(),
+    c7: getZeroState(),
+    c8: getZeroState(),
   },
   termSet: {
     t1: {
@@ -43,6 +44,7 @@ const state: SettingsState = {
       range: [0, 0],
     },
   },
+  systemOperatingConditions,
 };
 
 const mutations: MutationTree<SettingsState> = {

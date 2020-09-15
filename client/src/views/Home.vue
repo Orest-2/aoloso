@@ -16,36 +16,44 @@
     <b-table
       v-show="m"
       :fields="fields"
-      :items="items"
+      :items="criteria"
       bordered
       small
       class="text-center criteria-table"
     >
       <template #cell(t)="data">
         <b-form-select
-          v-model="data.item.t"
           :options="termSetOptions"
+          :value="data.item.t"
           size="sm"
+          debounce="200"
+          @input="setCriterion({ i: data.index, key: 't', value: $event })"
         />
       </template>
       <template #cell(q)="data">
         <b-form-input
-          v-model="data.item.q"
           :formatter="(v) => Number(v)"
+          :value="data.item.q"
           min="0"
           max="1"
           step="0.01"
           type="number"
           size="sm"
+          debounce="200"
+          @input="setCriterion({ i: data.index, key: 'q', value: $event })"
         />
       </template>
       <template #cell(v)="data">
         <b-form-input
-          v-model="data.item.v"
           :formatter="(v) => Number(v)"
+          :value="data.item.v"
           step="1"
+          min="1"
+          max="10"
           type="number"
           size="sm"
+          debounce="200"
+          @input="setCriterion({ i: data.index, key: 'v', value: $event })"
         />
       </template>
     </b-table>
@@ -80,32 +88,23 @@ import { RootState } from "@/store/models/store";
 import { TermSetItem } from "@/store/models/settings";
 import { eventScenarios, EventScenario } from "@/constants/event-scenarios";
 import { Option, Field } from "@/types";
-import {
-  SystemOperatingCondition,
-  systemOperatingConditions
-} from "@/constants/system-operating-conditions";
-
-interface Item {
-  criteria: string;
-  t: null | TermSetItem;
-  q: number;
-  v: number;
-}
+import { SystemOperatingCondition } from "@/constants/system-operating-conditions";
 
 export default Vue.extend({
   name: "Home",
 
   computed: {
     ...customMapState({
-      termSet: (sate: RootState) => sate.settings.termSet
+      criteria: (sate: RootState) => sate.home.criteria,
+      termSet: (sate: RootState) => sate.settings.termSet,
+      soc: (sate: RootState) => sate.settings.systemOperatingConditions
     }),
 
     ...mapGetters({
       getM: "home/getM",
       getSelectedEventScenario: "home/getSelectedEventScenario",
       getSelectedSystemOperatingCondition:
-        "home/getSelectedSystemOperatingCondition",
-      getTermSetRageMinMax: "settings/getTermSetRageMinMax"
+        "home/getSelectedSystemOperatingCondition"
     }),
 
     m: {
@@ -151,9 +150,7 @@ export default Vue.extend({
     },
 
     socOptions(): Option<SystemOperatingCondition>[] {
-      const opt = systemOperatingConditions.map<
-        Option<SystemOperatingCondition>
-      >(el => ({
+      const opt = this.soc.map<Option<SystemOperatingCondition>>(el => ({
         text: `${el.key.toUpperCase()} - ${el.name}`,
         value: el
       }));
@@ -184,37 +181,23 @@ export default Vue.extend({
       return opt;
     },
 
-    tsrMinMax(): { min: number; max: number } {
-      return this.getTermSetRageMinMax();
-    },
-
     fields(): Field[] {
       return [
-        { key: "criteria", label: "Критерії" },
+        { key: "key", label: "Критерії" },
         { key: "t", label: "t1" },
         { key: "q", label: "q1" },
         {
           key: "v",
-          label: `V[${this.tsrMinMax.min}, ${this.tsrMinMax.max}]`
+          label: `V[1, 10]`
         }
       ];
-    },
-
-    items(): Item[] {
-      return Array(this.m)
-        .fill(0)
-        .map((_, i) => ({
-          criteria: `K${i + 1}`,
-          t: null,
-          q: 0,
-          v: 0
-        }));
     }
   },
 
   methods: {
     ...mapActions({
       setM: "home/setM",
+      setCriterion: "home/setCriterion",
       setSelectedEventScenario: "home/setSelectedEventScenario",
       setSelectedSystemOperatingCondition:
         "home/setSelectedSystemOperatingCondition"

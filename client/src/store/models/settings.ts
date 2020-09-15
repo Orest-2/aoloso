@@ -1,3 +1,5 @@
+import { SystemOperatingCondition } from "@/constants/system-operating-conditions";
+
 export interface KnowledgeBaseMatrixRow {
   m1: number;
   m2: number;
@@ -44,4 +46,5 @@ export interface TermSet {
 export interface SettingsState {
   knowledgeBase: KnowledgeBase;
   termSet: TermSet;
+  systemOperatingConditions: SystemOperatingCondition[];
 }

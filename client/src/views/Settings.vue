@@ -14,7 +14,7 @@
       </b-col>
     </b-row>
 
-    <h3>Терм-множини</h3>
+    <h3>Розмежування термів</h3>
     <term-set-table />
   </div>
 </template>
