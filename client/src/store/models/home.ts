@@ -7,6 +7,9 @@ export interface Criterion {
   t: null | TermSetItem;
   q: number;
   v: number;
+  o: number;
+  mo: number;
+  w: number;
 }
 
 export interface HomeState {

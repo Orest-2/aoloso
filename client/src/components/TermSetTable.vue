@@ -21,6 +21,7 @@
             <b-form-input
               size="sm"
               debounce="200"
+              :disabled="data.index > 0"
               :value="data.value[0]"
               @input="setValueToTermSetRange({ k: data.item.key, i: 0, v: $event })"
             />

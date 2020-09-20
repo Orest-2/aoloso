@@ -6,6 +6,13 @@
     <b-container>
       <router-view />
     </b-container>
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">
+          Copyright © 2020 developed by Pidfihurnyi Orest
+        </span>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -21,4 +28,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+}
 </style>

@@ -2,7 +2,6 @@ import { EventScenario } from "@/constants/event-scenarios";
 import { SystemOperatingCondition } from "@/constants/system-operating-conditions";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { Criterion, HomeState } from "../models/home";
-import { TermSetItem } from "../models/settings";
 import { RootState } from "../models/store";
 
 const state: HomeState = {
@@ -50,12 +49,15 @@ const actions: ActionTree<HomeState, RootState> = {
       "SET_CRITERIA",
       Array(value)
         .fill(0)
-        .map((_, i) => ({
+        .map<Criterion>((_, i) => ({
           key: `K${i + 1}`,
           t: null,
           q: 0,
           v: 1,
-        })),
+          o: 0,
+          mo: 0,
+          w: 0,
+        }))
     );
   },
   setCriterion({ commit }, { i, key, value }) {
@@ -66,13 +68,13 @@ const actions: ActionTree<HomeState, RootState> = {
   },
   setSelectedSystemOperatingCondition(
     { commit },
-    value: SystemOperatingCondition,
+    value: SystemOperatingCondition
   ) {
     commit("SET_SELECTED_SYSTEM_OPERATING_CONDITION", value);
   },
 };
 
-export default {
+export const home = {
   namespaced: true,
   state,
   mutations,

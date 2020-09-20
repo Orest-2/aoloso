@@ -25,23 +25,23 @@ const state: SettingsState = {
   termSet: {
     t1: {
       name: "низький рівень",
-      range: [0, 0],
+      range: [0, 2],
     },
     t2: {
       name: "рівень нижче середнього",
-      range: [0, 0],
+      range: [2, 4],
     },
     t3: {
       name: "середній рівень",
-      range: [0, 0],
+      range: [4, 6],
     },
     t4: {
       name: "рівень вище середнього",
-      range: [0, 0],
+      range: [6, 8],
     },
     t5: {
       name: "високий рівень",
-      range: [0, 0],
+      range: [8, 10],
     },
   },
   systemOperatingConditions,
@@ -51,8 +51,10 @@ const mutations: MutationTree<SettingsState> = {
   SET_VALUE_TO_KNOWLEDGE_BASE_MATRIX(state, { c, s, m, v } = {}) {
     state.knowledgeBase[c][s][m] = Number(v);
   },
-  SET_VALUE_TO_TERM_SET_RANGE(state, { k, i, v } = {}) {
-    state.termSet[k].range[i] = Number(v);
+  SET_VALUE_TO_TERM_SET_RANGE({ termSet }, { k, i, v } = {}) {
+    const newVal = termSet[k].range;
+    newVal[i] = v;
+    termSet[k].range = [...newVal];
   },
 };
 
@@ -70,12 +72,20 @@ const actions: ActionTree<SettingsState, RootState> = {
     commit("SET_VALUE_TO_KNOWLEDGE_BASE_MATRIX", data);
   },
 
-  setValueToTermSetRange({ commit }, data) {
+  setValueToTermSetRange({ state, commit }, data) {
     commit("SET_VALUE_TO_TERM_SET_RANGE", data);
+
+    const keys = Object.keys(state.termSet);
+    const ni = keys.indexOf(data.k) + 1;
+    const nk = keys[ni];
+
+    if (data.i === 1 && nk) {
+      commit("SET_VALUE_TO_TERM_SET_RANGE", { k: nk, i: 0, v: data.v });
+    }
   },
 };
 
-export default {
+export const settings = {
   namespaced: true,
   state,
   mutations,

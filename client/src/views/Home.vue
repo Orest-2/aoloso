@@ -65,6 +65,7 @@
       <b-form-select
         v-model="selectedEventScenario"
         :options="eventScenarioOptions"
+        size="sm"
       />
     </b-form-group>
 
@@ -75,8 +76,19 @@
       <b-form-select
         v-model="selectedSystemOperatingCondition"
         :options="socOptions"
+        size="sm"
       />
     </b-form-group>
+
+    <b-row v-show="m">
+      <b-col class="text-center">
+        <b-btn @click="calculate">
+          Обчислити
+        </b-btn>
+      </b-col>
+    </b-row>
+
+    <result-block class="m-2" />
   </div>
 </template> 
 
@@ -90,8 +102,14 @@ import { eventScenarios, EventScenario } from "@/constants/event-scenarios";
 import { Option, Field } from "@/types";
 import { SystemOperatingCondition } from "@/constants/system-operating-conditions";
 
+import ResultBlock from "@/components/ResultBlock.vue";
+
 export default Vue.extend({
   name: "Home",
+
+  components: {
+    ResultBlock
+  },
 
   computed: {
     ...customMapState({
@@ -199,6 +217,7 @@ export default Vue.extend({
       setM: "home/setM",
       setCriterion: "home/setCriterion",
       setSelectedEventScenario: "home/setSelectedEventScenario",
+      calculate: "calculator/calculate",
       setSelectedSystemOperatingCondition:
         "home/setSelectedSystemOperatingCondition"
     })
