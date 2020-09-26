@@ -16,6 +16,9 @@
 
     <h3>Розмежування термів</h3>
     <term-set-table />
+
+    <h3>Множина L для підтримки прийняття якісного рішення </h3>
+    <l-set-table />
   </div>
 </template>
 
@@ -26,13 +29,15 @@ import { customMapState } from "@/helpers/map-satate";
 
 import KnowledgeBaseTable from "@/components/KnowledgeBaseTable.vue";
 import TermSetTable from "@/components/TermSetTable.vue";
+import LSetTable from "@/components/LSetTable.vue";
 
 export default Vue.extend({
   name: "Settings",
 
   components: {
     KnowledgeBaseTable,
-    TermSetTable
+    TermSetTable,
+    LSetTable
   },
 
   computed: {

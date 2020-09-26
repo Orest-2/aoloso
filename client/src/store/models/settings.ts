@@ -43,8 +43,23 @@ export interface TermSet {
   [k: string]: TermSetItem;
 }
 
+export interface LSetItem {
+  name: string;
+  range: [number, number];
+}
+
+export interface LSet {
+  vhs: LSetItem;
+  hs: LSetItem;
+  as: LSetItem;
+  ls: LSetItem;
+  vls: LSetItem;
+  [k: string]: LSetItem;
+}
+
 export interface SettingsState {
   knowledgeBase: KnowledgeBase;
   termSet: TermSet;
   systemOperatingConditions: SystemOperatingCondition[];
+  lSet: LSet;
 }

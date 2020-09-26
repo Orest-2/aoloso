@@ -28,6 +28,13 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+html {
+  position: relative;
+  min-height: 100%;
+}
+#app {
+  margin-bottom: 60px;
+}
 .footer {
   position: absolute;
   bottom: 0;

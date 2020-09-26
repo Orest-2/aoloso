@@ -1,50 +1,27 @@
+import {
+  lSet,
+  termSet,
+  getKnowledgeBaseDeaultState,
+} from "@/constants/settings";
 import { systemOperatingConditions } from "@/constants/system-operating-conditions";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { SettingsState } from "../models/settings";
 import { RootState } from "../models/store";
 
-const getZeroState = () => ({
-  vhs: { m1: 0, m2: 0, m3: 0, m4: 0 },
-  hs: { m1: 0, m2: 0, m3: 0, m4: 0 },
-  as: { m1: 0, m2: 0, m3: 0, m4: 0 },
-  ls: { m1: 0, m2: 0, m3: 0, m4: 0 },
-  vls: { m1: 0, m2: 0, m3: 0, m4: 0 },
-});
-
 const state: SettingsState = {
   knowledgeBase: {
-    c1: getZeroState(),
-    c2: getZeroState(),
-    c3: getZeroState(),
-    c4: getZeroState(),
-    c5: getZeroState(),
-    c6: getZeroState(),
-    c7: getZeroState(),
-    c8: getZeroState(),
+    c1: getKnowledgeBaseDeaultState(0),
+    c2: getKnowledgeBaseDeaultState(1),
+    c3: getKnowledgeBaseDeaultState(2),
+    c4: getKnowledgeBaseDeaultState(3),
+    c5: getKnowledgeBaseDeaultState(4),
+    c6: getKnowledgeBaseDeaultState(5),
+    c7: getKnowledgeBaseDeaultState(6),
+    c8: getKnowledgeBaseDeaultState(7),
   },
-  termSet: {
-    t1: {
-      name: "низький рівень",
-      range: [0, 2],
-    },
-    t2: {
-      name: "рівень нижче середнього",
-      range: [2, 4],
-    },
-    t3: {
-      name: "середній рівень",
-      range: [4, 6],
-    },
-    t4: {
-      name: "рівень вище середнього",
-      range: [6, 8],
-    },
-    t5: {
-      name: "високий рівень",
-      range: [8, 10],
-    },
-  },
+  termSet,
   systemOperatingConditions,
+  lSet,
 };
 
 const mutations: MutationTree<SettingsState> = {
@@ -55,6 +32,13 @@ const mutations: MutationTree<SettingsState> = {
     const newVal = termSet[k].range;
     newVal[i] = v;
     termSet[k].range = [...newVal];
+  },
+  SET_VALUE_TO_L_SET_RANGE({ lSet }, { k, i, v } = {}) {
+    console.log(lSet, k);
+
+    const newVal = lSet[k].range;
+    newVal[i] = v;
+    lSet[k].range = [...newVal];
   },
 };
 
@@ -81,6 +65,18 @@ const actions: ActionTree<SettingsState, RootState> = {
 
     if (data.i === 1 && nk) {
       commit("SET_VALUE_TO_TERM_SET_RANGE", { k: nk, i: 0, v: data.v });
+    }
+  },
+
+  setValueToLSetRange({ state, commit }, data) {
+    commit("SET_VALUE_TO_L_SET_RANGE", data);
+
+    const keys = Object.keys(state.lSet);
+    const ni = keys.indexOf(data.k) + 1;
+    const nk = keys[ni];
+
+    if (data.i === 1 && nk) {
+      commit("SET_VALUE_TO_L_SET_RANGE", { k: nk, i: 0, v: data.v });
     }
   },
 };
