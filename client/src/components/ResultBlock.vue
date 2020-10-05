@@ -28,17 +28,27 @@
             bordered
             small
             class="text-center criteria-table"
-          />
+          >
+            <template #cell(o)="{ value }">
+              {{ value.toFixed(3) }}
+            </template>
+            <template #cell(mo)="{ value }">
+              {{ value.toFixed(3) }}
+            </template>
+            <template #cell(w)="{ value }">
+              {{ value.toFixed(3) }}
+            </template>
+          </b-table>
           <div class="w-100 text-center my-2">
-            <span>M<sub>{{ ses && ses.index + 1 }}</sub>(S) = {{ result.ms }}</span>
+            <span>M<sub>{{ ses && ses.index + 1 }}</sub>(S) = {{ result.ms.toFixed(3) }}</span>
           </div>
 
           <div class="w-100 text-center my-2">
-            <span>R<sub>{{ ses && ses.index + 1 }}</sub> = {{ result.r }}</span>
+            <span>R<sub>{{ ses && ses.index + 1 }}</sub> = {{ result.r.toFixed(3) }}</span>
           </div>
 
           <div class="w-100 text-center my-2">
-            <span>m(R<sub>{{ ses && ses.index + 1 }}</sub>) = {{ result.mr }}</span>
+            <span>m(R<sub>{{ ses && ses.index + 1 }}</sub>) = {{ result.mr.toFixed(3) }}</span>
           </div>
 
           <div class="w-100 text-center my-2">
