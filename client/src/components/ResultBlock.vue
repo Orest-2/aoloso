@@ -48,7 +48,12 @@
           </div>
 
           <div class="w-100 text-center my-2">
-            <span>m(R<sub>{{ ses && ses.index + 1 }}</sub>) = {{ result.mr.toFixed(3) }}</span>
+            <span>
+              m(R<sub>{{ ses && ses.index + 1 }}</sub>) = {{ result.mr.toFixed(3) }}
+            </span>
+            <span>
+              {{ result.lk && `∈ [${result.lk.value.range.join(', ')}) - ${result.lk.key}: ${result.lk.value.name}` }}
+            </span>
           </div>
 
           <div class="w-100 text-center my-2">

@@ -4,7 +4,7 @@ import { Criterion } from "../models/home";
 import { RootState } from "../models/store";
 
 const state: CalculatorState = {
-  result: { data: [], ms: 0, r: 0, mr: 0, d: 0 },
+  result: { data: [], ms: 0, r: 0, mr: 0, lk: null, d: 0 },
 };
 
 const mutations: MutationTree<CalculatorState> = {
@@ -80,7 +80,19 @@ const actions: ActionTree<CalculatorState, RootState> = {
       d = knowledgeBase[ssock][lk[0]][ssek];
     }
 
-    commit("SET_RESULT", { data, ms, r, mr, d });
+    commit("SET_RESULT", {
+      data,
+      ms,
+      r,
+      mr,
+      lk: lk
+        ? {
+            key: lk[0],
+            value: lk[1],
+          }
+        : null,
+      d,
+    });
   },
 };
 

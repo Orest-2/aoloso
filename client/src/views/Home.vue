@@ -87,6 +87,17 @@
         </b-btn>
       </b-col>
     </b-row>
+    
+    <b-row v-show="!m">
+      <b-col class="text-center">
+        <b-btn
+          @click="example"
+          variant="info"
+        >
+          Приклад
+        </b-btn>
+      </b-col>
+    </b-row>
 
     <result-block class="m-2" />
   </div>
@@ -220,7 +231,27 @@ export default Vue.extend({
       calculate: "calculator/calculate",
       setSelectedSystemOperatingCondition:
         "home/setSelectedSystemOperatingCondition"
-    })
+    }),
+
+    example() {
+      const ti = [2, 5, 4];
+      const q = [0.2, 0.8, 0.9];
+
+      this.setM(3);
+
+      for (let i = 0; i < 3; i++) {
+        this.setCriterion({
+          i,
+          key: "t",
+          value: this.termSetOptions[ti[i]].value
+        });
+        this.setCriterion({ i, key: "q", value: q[i] });
+        this.setCriterion({ i, key: "v", value: 8 + i });
+      }
+
+      this.setSelectedEventScenario(this.eventScenarioOptions[2].value);
+      this.setSelectedSystemOperatingCondition(this.socOptions[1].value);
+    }
   }
 });
 </script>
